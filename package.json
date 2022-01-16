@@ -1,0 +1,30 @@
+{
+  "name": "kino-ytterhogdal",
+  "version": "1.0.0",
+  "description": "A cinema on node",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon .",
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matodorovic/kino-ytterhogdal/issues"
+  },
+  "homepage": "https://github.com/matodorovic/kino-ytterhogdal#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2",
+    "handlebars": "^4.7.7"
+  }
+}
