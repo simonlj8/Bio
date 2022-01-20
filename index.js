@@ -1,7 +1,13 @@
 import express from "express";
+import { engine } from "express-handlebars";
+import { marked } from "marked";
+import { loadMovie, loadMovies } from "./src/movies.js";
 import fs from "fs/promises";
 
-const app = express();
+/*const app = express();
+
+
+
 
 app.get('/', async (request, response) => {
 const fileBuf = await fs.readFile('index.html');
@@ -23,26 +29,44 @@ app.get('/*', async (request, response) => {
     }
 });
 
-/*app.get('/src/js/pages/:fileName', async (request, response) => {
-   
-    console.log(request.params.name);
-    const fileName = request.params.fileName;
-    const fileBuf = await fs.readFile(`./src/js/pages/${fileName}`);
-    const type = fileName.split('.')[1];
-    response.type(type);
-    response.send(fileBuf);
-    
+app.listen(5080);
+*/
+
+const app = express();
+
+app.engine("handlebars", engine({
+  helpers: {
+    markdown: md => marked(md),
+  },
+}));
+app.set("view engine", "handlebars");
+app.set("views", "./templates");
+
+app.get("/", async (req, res) => {
+  const movies = await loadMovies();
+  res.render("home", { movies });
 });
 
-app.get('/img/:fileName', async (request, response) => {
-   
-    console.log(request.params.name);
-    const fileName = request.params.fileName;
-    const fileBuf = await fs.readFile(`./img/${fileName}`);
-    const type = fileName.split('.')[1];
-    response.type(type);
-    response.send(fileBuf);
-    
-});*/
+app.get("/aboutus", async (req, res) => {
+  const movies = await loadMovies();
+  res.render("aboutus", { movies });
+});
+
+app.get("/home", async (req, res) => {
+  const movies = await loadMovies();
+  res.render("home", { movies });
+});
+
+
+app.get("/movies/:movieId", async (req, res) => {
+  const movie = await loadMovie(req.params.movieId);
+  if (movie) {
+    res.render("movie", { movie });
+  } else {
+    res.status(404).render("404");
+  }
+});
+
+app.use("/static", express.static("./static"));
 
 app.listen(5080);
