@@ -31,42 +31,75 @@ app.get('/*', async (request, response) => {
 
 app.listen(5080);
 */
-
 const app = express();
 
-app.engine("handlebars", engine({
-  helpers: {
-    markdown: md => marked(md),
-  },
-}));
-app.set("view engine", "handlebars");
-app.set("views", "./templates");
+async function loadHeader() {
+  const headerBuf = await fs.readFile("./templates/header.html");
+  const headerText = headerBuf.toString();
+  return headerText;
+}
+
+async function loadFooter() {
+  const headerBuf = await fs.readFile("./templates/footer.html");
+  const headerText = headerBuf.toString();
+  return headerText;
+}
 
 app.get("/", async (req, res) => {
-  const movies = await loadMovies();
-  res.render("home", { movies });
-});
-
-app.get("/aboutus", async (req, res) => {
-  const movies = await loadMovies();
-  res.render("aboutus", { movies });
-});
-
-app.get("/home", async (req, res) => {
-  const movies = await loadMovies();
-  res.render("home", { movies });
-});
-
-
-app.get("/movies/:movieId", async (req, res) => {
-  const movie = await loadMovie(req.params.movieId);
-  if (movie) {
-    res.render("movie", { movie });
-  } else {
-    res.status(404).render("404");
+  try {
+      const headerText = await loadHeader();
+      const footerText = await loadFooter();
+      const htmlBuf = await fs.readFile("./templates/index.html");
+      const htmlText = htmlBuf.toString().replace("%header%", headerText).replace("%footer%", footerText);
+      res.send(htmlText);
+  } catch (err) {
+      res.status(404).end();
   }
 });
 
-app.use("/static", express.static("./static"));
+app.get("/aboutus", async (req, res) => {
+  try {
+      const headerText = await loadHeader();
+      const footerText = await loadFooter();
+      const htmlBuf = await fs.readFile("./templates/aboutus.html");
+      const htmlText = htmlBuf.toString().replace("%header%", headerText).replace("%footer%", footerText);;
+      res.send(htmlText);
+  } catch (err) {
+      res.status(404).end();
+  }
+});
+
+
+app.get("/movies", async (req, res) => {
+  try {
+      const headerText = await loadHeader();
+      const footerText = await loadFooter();
+      const htmlBuf = await fs.readFile("./templates/movies.html");
+      const htmlText = htmlBuf.toString().replace("%header%", headerText).replace("%footer%", footerText);;
+      res.send(htmlText);
+  } catch (err) {
+      res.status(404).end();
+  }
+});
+
+
+
+
+
+app.get("/*", async (req, res) => {
+  try {
+      const fileName = req.path;
+      const fileType = fileName.split(".")[1];
+      const fileBuf = await fs.readFile(`./${fileName}`);
+      res.type(fileType);
+      res.send(fileBuf);
+  } catch (err) {
+      res.status(404).end();
+  }
+});
+
+app.use("/*", (req, res) => {
+  res.status(405).end();
+});
 
 app.listen(5080);
