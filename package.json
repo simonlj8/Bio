@@ -2,7 +2,7 @@
   "name": "kino-ytterhogdal",
   "version": "1.0.0",
   "description": "A cinema on node",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon .",
