@@ -1,7 +1,7 @@
 import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
-import { loadMovie, loadAllMovies } from "./src_old/movies.js";
+import { loadMovie, loadAllMovies } from "./static/src/movies.js";
 
 const app = express();  
 
@@ -14,22 +14,17 @@ app.set("view engine", "handlebars");
 
 app.set("views", "./views");
 
-
-
-
-app.get('/', async (req, res) => {   
-  res.render('index');
+app.get("/", async (req, res) => {   
+  res.render("index");
 });
 
-
-
-app.get('/aboutus', (req, res) => {
-  res.render('./partials/aboutus')
+app.get("/aboutus", (req, res) => {
+  res.render("./partials/aboutus")
 });
 
-app.get("/movies", async (req, res) => {
+app.get("/movie", async (req, res) => {
   const movies = await loadAllMovies()
-  res.render("./partials/movies", { movies });
+  res.render("./partials/movie", { movies });
 });
 
 app.get("/movies/:movieId", async (req, res) => {
@@ -40,7 +35,6 @@ app.get("/movies/:movieId", async (req, res) => {
     res.status(404).render("./partials/404");
   }
 });
-
 
 app.use("/", express.static("./static"));
 

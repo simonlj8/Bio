@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  
+    <body>
+     <!-- {{{body}}} -->
+
+<article class="movie">
+  <h1>{{ movie.attributes.title }}</h1>
+  <div class="intro">
+    {{{ movie.attributes.intro }}}
+  </div>
+  {{#if movie.attributes.image }}
+  <img src="{{{ markdown movie.attributes.image.url }}}">
+  {{/if }}
+</div>
+
+</body>
+</html>
