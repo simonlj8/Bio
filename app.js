@@ -33,7 +33,7 @@ app.get("/movies", async (req, res) => {
 app.get("/movies/:movieId", async (req, res) => {
   const movie = await loadMovie(req.params.movieId);
   if (movie) {
-    res.render("./partials/movies", { movie });
+    res.render("./partials/movie", { movie });
   } else {
     res.status(404).render("./partials/404");
   }

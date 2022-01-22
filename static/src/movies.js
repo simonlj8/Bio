@@ -4,14 +4,12 @@ const movieApi = 'https://lernia-kino-cms.herokuapp.com/api';
 
 export async function loadAllMovies() {
  const res = await fetch(movieApi + '/movies');
-  //const res = await fetch(movieApi);
-  const payload = await res.json();
+ const payload = await res.json();
   return payload.data;
 }
 
 export async function loadMovie(id) {
   const res = await fetch(movieApi + '/movies/' + id);
- //const res = await fetch(movieApi + id);
   const payload = await res.json();
   return payload.data;
 }

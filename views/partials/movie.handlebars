@@ -1,13 +1,14 @@
 <html>  
     <body> 
-<article class="movie">
+<div class="movies">
+  <a href="/movies">Back to movie page</a>
   <h1>{{ movie.attributes.title }}</h1>
   <div class="intro">
-    {{{ movie.attributes.intro }}}
+    {{{ markdown movie.attributes.intro }}}
   </div>
-  {{#if movie.attributes.image }}
-  <img src="{{{ markdown movie.attributes.image.url }}}">
-  {{/if }}
+  {{ movie.attributes.image }}
+  <img src="{{{ movie.attributes.image.url }}}">
+ 
 </div>
 
 </body>

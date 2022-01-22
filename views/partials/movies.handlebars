@@ -3,8 +3,8 @@ Welcome to our website!
 <ul>
 {{#each movies }}
   <li>
-    <a href="/movies"{{ this.id }}">
-      {{ this.attributes.title }}
+    <a href="/movies/{{ this.id }}">
+     {{ this.attributes.title }}
     </a>
   </li>
 {{/each}}
