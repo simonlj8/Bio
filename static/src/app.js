@@ -20,11 +20,7 @@ app.get("/", async (req, res) => {
 app.get("/aboutus", async (req, res) => {
   res.render("./partials/aboutus")
 });
-/*
-app.get("/movie", async (rew, res) => {
-  res.render("./partials/movie")
-});
-*/
+
 app.get("/movies", async (req, res) => {
   const movies = await loadAllMovies()
   res.render("./partials/movies", { movies });

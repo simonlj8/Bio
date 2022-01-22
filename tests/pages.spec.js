@@ -8,15 +8,15 @@ const response = await request(app)
 });
 
 test('See if Batman shows right', async () =>{
-    const response = await request(app)
+        const response = await request(app)
         .get('/movies/4')
         .expect(200);    
         expect(response.text.includes('Dark Knight')).toBeTruthy();
-    });
+     });
 
 test('See if Godfather shows right', async () =>{
         const response = await request(app)
             .get('/movies/2')
             .expect(200);    
             expect(response.text.includes('Godfather')).toBeTruthy();
-        });
+    });
