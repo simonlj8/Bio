@@ -2,12 +2,12 @@
   "name": "kino-ytterhogdal",
   "version": "1.0.0",
   "description": "A cinema on node",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon .",
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
